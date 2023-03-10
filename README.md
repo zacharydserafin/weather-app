@@ -19,7 +19,7 @@ The goal of Project (or Challenge) Six was to create a weather dashboard applica
 
 ## Credits
 
-*University of Arizona Coding Bootcamp (Powered by edX)*: provided a finalized version of the code for the HTML, JavaScript, and modifications to the CSS stylesheet. I referenced this material for several key aspects of the HTML structuring and JavaScript functionality. I also used portions of the custom CSS that was used. All of these reference materials can be found here: <a href="./reference_material">Reference Material</a>
+*University of Arizona Coding Bootcamp (Powered by edX)*: provided a finalized version of the code for the HTML, JavaScript, and modifications to the CSS stylesheet. I referenced this material for several key aspects of the HTML structuring and JavaScript functionality. I also used portions of the custom CSS that was used. All of these reference materials can be found here: <a href="./referencematerial">Reference Material</a>
 
 
 
