@@ -8,7 +8,9 @@ var searchInput = document.getElementById("form-input");
 var searchForm = document.getElementById("search-form");
 var todayEl = document.getElementById("today");
 var forecastEl = document.getElementById("forecast");
+var historyEl = document.getElementById("history");
 
+var history = [];
 
 function renderToday(city, data) {
     var today = dayjs().format("MM-DD-YYYY");
@@ -27,7 +29,7 @@ function renderToday(city, data) {
     var windSpeedEl = document.createElement("p");
     var weatherIcon = document.createElement("img");
 
-    todayTitle.classList.add("weather-title");
+    todayTitle.classList.add("weather-title", "col-12", "pb-2");
     card.setAttribute("class", "card");
     card.classList.add("weather-card");
     cardContent.setAttribute("class", "card-body");
@@ -158,17 +160,62 @@ function getCoordinates(search) {
         });
 }
 
+function renderHistory() {
+    historyEl.textContent = "";
+    var history = JSON.parse(localStorage.getItem("search-history")) || [];
+    for (var i = history.length - 1; i >= 0; i--) {
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("data-search", history[i]);
+        button.classList.add("history-button", "history-btn");
+        history[i] = history[i].toUpperCase();
+        button.textContent = history[i];
+        historyEl.appendChild(button);
+    }
+}
+
+function updateHistory(data) {
+    var history = JSON.parse(localStorage.getItem("search-history")) || [];
+    if (history.includes(data)) {
+        return;
+    }
+    history.push(data);
+    localStorage.setItem("search-history", JSON.stringify(history));
+    renderHistory();
+}
+
+function initHistory() {
+    var storedHistory = localStorage.getItem("search-history");
+    if (storedHistory) {
+        history = JSON.parse(storedHistory)
+        renderHistory();
+    }
+    
+}
+
 function handleSearch(event) {
-    if (searchInput.value === null) {
-        return
+    if (!searchInput.value) {
+        return;
     }
     event.preventDefault();
     
     var search = searchInput.value.trim();
     getCoordinates(search);
+    updateHistory(search);
     searchInput.value = "";
+}
+
+function handleHistoryClick(event) {
+    if (event.target.matches(".history-button")) {
+        var button = event.target;
+        var data = button.getAttribute("data-search");
+        getCoordinates(data);
+    } else {
+        return;
+    }
 }
 
 
 searchForm.addEventListener("submit", handleSearch)
-
+historyEl.addEventListener("click", handleHistoryClick)
+initHistory();
