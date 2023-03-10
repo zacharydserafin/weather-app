@@ -10,6 +10,7 @@ html {
   /* 1 */
   -webkit-text-size-adjust: 100%;
   /* 2 */
+  overflow-x: hidden;
 }
 
 /* Sections
@@ -1724,6 +1725,17 @@ label form [type='radio'] {
     align-content: center;
   }
 }
+
+.weather-card {
+  margin: 5%;
+}
+
+.weather-title {
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+
+
 
 /* .five-day-card {
   position: relative;
